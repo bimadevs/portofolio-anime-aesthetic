@@ -14,22 +14,25 @@ export const Hero = () => {
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
+        {/* Overlay gelap untuk background */}
+        <div className="absolute inset-0 bg-black/60 z-10" />
+        {/* Gradient overlay untuk efek kedalaman */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80 z-20" />
         <Image
           src={images.heroBg}
           alt="Anime aesthetic background"
           fill
-          className="object-cover"
+          className="object-cover brightness-75"
           priority
         />
       </motion.div>
 
       {/* Sakura petals animation */}
-      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 z-30 overflow-hidden pointer-events-none">
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-pink-300 rounded-full opacity-70"
+            className="absolute w-4 h-4 bg-pink-300/50 rounded-full opacity-50"
             style={{
               left: `${Math.random() * 100}%`,
               top: `-5%`,
@@ -42,7 +45,7 @@ export const Hero = () => {
                 `${Math.random() * 50 - 25}px`,
               ],
               rotate: [0, 360],
-              opacity: [0.7, 0.5, 0],
+              opacity: [0.5, 0.3, 0],
             }}
             transition={{
               duration: Math.random() * 10 + 15,
@@ -55,29 +58,29 @@ export const Hero = () => {
       </div>
 
       {/* Anime-style decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full z-30 pointer-events-none">
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.15 }}
+          animate={{ opacity: 0.1 }}
           transition={{ delay: 1, duration: 2 }}
-          className="absolute top-10 right-10 w-40 h-40 border-2 border-pink-500/30 rounded-full"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.15 }}
-          transition={{ delay: 1.5, duration: 2 }}
-          className="absolute bottom-20 left-10 w-60 h-60 border-2 border-purple-500/30 rounded-full"
+          className="absolute top-10 right-10 w-40 h-40 border-2 border-pink-500/20 rounded-full"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
+          transition={{ delay: 1.5, duration: 2 }}
+          className="absolute bottom-20 left-10 w-60 h-60 border-2 border-purple-500/20 rounded-full"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
           transition={{ delay: 2, duration: 2 }}
-          className="absolute top-1/3 left-1/4 w-80 h-80 border-2 border-blue-500/20 rounded-full"
+          className="absolute top-1/3 left-1/4 w-80 h-80 border-2 border-blue-500/10 rounded-full"
         />
       </div>
 
       {/* Konten Hero */}
-      <div className="relative z-20 flex min-h-screen items-center justify-center px-4">
+      <div className="relative z-40 flex min-h-screen items-center justify-center px-4">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0 }}
@@ -85,7 +88,7 @@ export const Hero = () => {
             transition={{ duration: 1, delay: 0.3 }}
             className="mb-4 flex justify-center"
           >
-            <div className="inline-block px-3 py-1 text-sm font-medium text-white bg-purple-500/20 backdrop-blur-sm rounded-full border border-purple-500/30">
+            <div className="inline-block px-3 py-1 text-sm font-medium text-white bg-purple-500/10 backdrop-blur-sm rounded-full border border-purple-500/20">
               ポートフォリオ • Portfolio
             </div>
           </motion.div>
@@ -106,7 +109,7 @@ export const Hero = () => {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mb-8 text-lg text-gray-300 md:text-xl"
+            className="mb-8 text-lg text-gray-200 md:text-xl"
           >
             アニメの美学で<span className="text-pink-400">デジタル世界</span>を創造する
             <span className="block mt-1">Mengubah ide menjadi realitas digital dengan sentuhan anime aesthetic</span>
@@ -129,7 +132,7 @@ export const Hero = () => {
               </span>
             </button>
             <button
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg p-0.5 text-sm font-medium border border-pink-500/50 text-white hover:text-pink-300 focus:outline-none focus:ring-4 focus:ring-pink-300/30 w-full sm:w-auto mt-3 sm:mt-0"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg p-0.5 text-sm font-medium border border-pink-500/30 text-white hover:text-pink-300 focus:outline-none focus:ring-4 focus:ring-pink-300/30 w-full sm:w-auto mt-3 sm:mt-0"
               role="button"
               tabIndex={0}
               aria-label="Contact Me"
@@ -147,10 +150,10 @@ export const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40"
       >
         <div className="flex flex-col items-center">
-          <span className="mb-2 text-sm text-gray-400">スクロールダウン</span>
+          <span className="mb-2 text-sm text-gray-300">スクロールダウン</span>
           <motion.div
             animate={{
               y: [0, 10, 0],
@@ -160,7 +163,7 @@ export const Hero = () => {
               repeat: Infinity,
               repeatType: "loop",
             }}
-            className="h-6 w-4 rounded-full border-2 border-white"
+            className="h-6 w-4 rounded-full border-2 border-white/50"
           >
             <motion.div
               animate={{
@@ -171,7 +174,7 @@ export const Hero = () => {
                 repeat: Infinity,
                 repeatType: "loop",
               }}
-              className="mx-auto mt-1 h-2 w-1 rounded-full bg-white"
+              className="mx-auto mt-1 h-2 w-1 rounded-full bg-white/50"
             />
           </motion.div>
         </div>

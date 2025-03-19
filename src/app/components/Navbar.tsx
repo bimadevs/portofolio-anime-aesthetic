@@ -6,6 +6,15 @@ import { useState, useEffect } from "react";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(prev => !prev);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +31,8 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-black/30 backdrop-blur-lg"
+        isScrolled || isMobileMenuOpen
+          ? "bg-black/50 backdrop-blur-lg"
           : "bg-transparent"
       }`}
     >
@@ -60,15 +69,45 @@ export const Navbar = () => {
         </div>
 
         <button
-          className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800 md:hidden"
-          aria-label="Menu"
+          className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:text-white dark:focus:ring-blue-800 md:hidden"
+          aria-label="Toggle mobile menu"
+          aria-expanded={isMobileMenuOpen}
           tabIndex={0}
+          onClick={handleMobileMenuToggle}
+          onKeyDown={(e) => e.key === 'Enter' && handleMobileMenuToggle()}
         >
           <span className="relative rounded-md bg-white px-4 py-2 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900">
-            Menu
+            {isMobileMenuOpen ? "Close" : "Menu"}
           </span>
         </button>
       </div>
+
+      {/* Mobile menu overlay */}
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className="absolute left-0 top-full w-full bg-black/80 backdrop-blur-lg p-5 flex flex-col gap-4 border-t border-gray-800"
+        >
+          {["About", "Projects", "Skills", "Contact"].map((item) => (
+            <Link
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="text-gray-300 hover:text-white py-3 px-4 hover:bg-white/5 rounded-lg transition-colors"
+              aria-label={item}
+              onClick={closeMobileMenu}
+              onKeyDown={(e) => e.key === 'Enter' && closeMobileMenu()}
+              tabIndex={0}
+            >
+              <span className="relative">
+                {item}
+              </span>
+            </Link>
+          ))}
+        </motion.div>
+      )}
     </motion.nav>
   );
 }; 
